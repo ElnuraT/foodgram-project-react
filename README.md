@@ -30,6 +30,7 @@ python manage.py collectstatic --noinput
 - Наполнение базы данных ингредиентами и тегами
 ```bash
 python manage.py load_ingredients
+
 ```
 
 ```
