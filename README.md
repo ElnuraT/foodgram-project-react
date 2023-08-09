@@ -1,50 +1,78 @@
-    # FOODGRAM
+# Foodrgam
 
-FOODGRAM это удобный сайт для размещения и поиска рецептов.
+Продуктовый помощник - дипломный проект курса Backend-разработки Яндекс.Практикума. На этом сервисе пользователи могут публиковать рецепты, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в список «Избранное», а перед походом в магазин скачивать сводный список продуктов, необходимых для приготовления одного или нескольких выбранных блюд.
+
+Проект реализован на `Django` и `DjangoRestFramework`. Доступ к данным реализован через API-интерфейс. 
+
 
 ### Технологии:
 
-Python, Django, Docker, Gunicorn, NGINX, PostgreSQL, Yandex Cloud.
+Python, Django, Django Rest Framework, Docker, Gunicorn, NGINX, PostgreSQL, Yandex Cloud, Continuous Integration, Continuous Deployment
 
-### Для запуска проект необходимо:
+## Локальный запуск проекта
 
-- Клонировать репозиторий:
-```
-git@github.com:ElnuraT/foodgram-project-react.git
-```
-- Создание виртуального окружения и установка зависимостей
-```bash
-python -m venv venv (windows)
-python3 -m venv venv (linux)
-. source venv/Scripts/activate (windows)
-. source venv/bin/activate (linux)
-pip install --upgade pip
-pip install -r -requirements.txt
-```
-- Примените миграции и соберите статику
-```bash[README.md](README.md)
-python manage.py makemigrations
-python manage.py migrate
-python manage.py collectstatic --noinput
-```
-- Наполнение базы данных ингредиентами и тегами
-```bash
-python manage.py load_ingredients
+Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-
-```
-- Запуск сервера
-```bash
-python manage.py runserver
+git clone git@github.com:ElnuraT/foodgram-project-react.git
+cd foodgram-project-react
 ```
 
-### Работа с api
-- В проекте уже создана админка, несколько рецептов и юзеров, а также в базу были добавлены ингредиенты для более удобной работы.
-
-- Админка доступна по ссылке [http://127.0.0.1:8000/admin/].
+Cоздать и активировать виртуальное окружение, установить зависимости:
 
 ```
-admin:
-username: Elnura
-password: Adema2016
+python3 -m venv venv && \ 
+    source venv/scripts/activate && \
+    python -m pip install --upgrade pip && \
+    pip install -r backend/requirements.txt
+```
+
+Установите [docker](https://www.docker.com/) на свой компьютер.
+
+Запустите проект через docker-compose:
+
+```
+docker compose -f docker-compose.yml up -d
+```
+
+Выполните миграции:
+
+```
+docker compose -f docker-compose.yml exec backend python manage.py migrate
+```
+
+Соберите статику и скопируйте ее:
+
+```
+docker compose -f docker-compose.yml exec backend python manage.py collectstatic  && \
+docker compose -f docker-compose.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+```
+
+Загрузите игредиенты в базу данных:
+
+```
+docker compose -f docker-compose.yml exec backend python manage.py load_ingredients
+```
+
+Создайте суперпользователя:
+
+```
+docker compose -f docker-compose.yml exec backend python manage.py createsuperuser
+```
+
+## .env
+
+В корне проекта создайте файл .env по примеру из файла .env.example и пропишите в него свои данные.
+
+
+На сервере нужно создать папку foodgram, в ней файл .env и папку infra. В папке infra создать файл
+nginx.conf. Его содержание должно быть таким же, как у файла infra/nginx.conf в проекте.
+
+Сейчас проект развернут по адресу https://tynaeva.ddns.net
+Логин и пароль для доступа в админку
+
+Elnura@admin.ru 
+Adema2016
+
+## Автор
+## Elnura Tynaeva
