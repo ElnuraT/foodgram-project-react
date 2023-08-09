@@ -11,7 +11,8 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'author', 'text', 'is_favorited')
+    # list_display = ('id', 'name', 'author', 'text', 'is_favorited')
+    list_display = ('id', 'name', 'author', 'text')
     list_filter = ('author', 'name', 'tags')
 
     def is_favorited(self, obj):

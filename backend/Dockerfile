@@ -2,12 +2,14 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y make
+
 RUN pip install gunicorn==20.1.0
 
-COPY requirements.txt .
+COPY requirements.txt ./
 
 RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . .
 
-CMD ["gunicorn", "foodgram.wsgi:application", "--bind", "0:8000" ]
+CMD ["make", "run_gunicorn"]
