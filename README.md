@@ -45,7 +45,7 @@ docker compose -f docker-compose.yml exec backend python manage.py migrate
 
 ```
 docker compose -f docker-compose.yml exec backend python manage.py collectstatic  && \
-docker compose -f docker-compose.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+docker compose -f docker-compose.yml exec backend cp -r /backend/collected_static/. /backend_static/static/
 ```
 
 Загрузите игредиенты в базу данных:
@@ -75,4 +75,4 @@ Elnura@admin.ru
 Adema2016
 
 ## Автор
-## Elnura Tynaeva
+## Эльнура Тынаева
